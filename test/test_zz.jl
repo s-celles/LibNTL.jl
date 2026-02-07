@@ -187,3 +187,118 @@ end
     @test ZZ(0)^0 == ZZ(1)  # 0^0 = 1 by convention
     @test ZZ(1)^1000000 == ZZ(1)
 end
+
+# ============================================================================
+# Number Theory Functions (Feature 002)
+# ============================================================================
+
+@testset "PowerMod" begin
+    # Basic modular exponentiation
+    @test PowerMod(ZZ(2), ZZ(10), ZZ(1000)) == ZZ(24)  # 2^10 mod 1000 = 1024 mod 1000 = 24
+    @test PowerMod(ZZ(3), ZZ(7), ZZ(13)) == ZZ(3)      # 3^7 = 2187 = 168*13 + 3
+    @test PowerMod(ZZ(2), ZZ(100), ZZ(1000000007)) == ZZ(976371285)  # Large exponent
+
+    # Edge cases
+    @test PowerMod(ZZ(0), ZZ(5), ZZ(7)) == ZZ(0)       # 0^n = 0
+    @test PowerMod(ZZ(5), ZZ(0), ZZ(7)) == ZZ(1)       # a^0 = 1
+
+    # Convenience method with Integer arguments
+    @test PowerMod(2, 10, 1000) == ZZ(24)
+
+    # Error: modulus must be > 1
+    @test_throws DomainError PowerMod(ZZ(2), ZZ(3), ZZ(1))
+    @test_throws DomainError PowerMod(ZZ(2), ZZ(3), ZZ(0))
+end
+
+@testset "Bit Operations" begin
+    # bit(a, i) returns bit i of |a| (0-indexed from least significant)
+    @test bit(ZZ(5), 0) == 1    # 5 = 101 in binary, bit 0 = 1
+    @test bit(ZZ(5), 1) == 0    # bit 1 = 0
+    @test bit(ZZ(5), 2) == 1    # bit 2 = 1
+    @test bit(ZZ(5), 3) == 0    # bit 3 = 0 (beyond number)
+
+    # Works with larger numbers
+    @test bit(ZZ(256), 8) == 1  # 256 = 2^8
+    @test bit(ZZ(256), 7) == 0
+
+    # Works with negative numbers (returns bit of |a|)
+    @test bit(ZZ(-5), 0) == 1
+    @test bit(ZZ(-5), 2) == 1
+end
+
+@testset "RandomBnd" begin
+    # RandomBnd(n) returns random in [0, n-1]
+    n = ZZ(100)
+    for _ in 1:100
+        r = RandomBnd(n)
+        @test r >= ZZ(0)
+        @test r < n
+    end
+
+    # Error: bound must be > 0
+    @test_throws DomainError RandomBnd(ZZ(0))
+    @test_throws DomainError RandomBnd(ZZ(-1))
+end
+
+@testset "RandomBits" begin
+    # RandomBits(n) returns random n-bit number
+    r = RandomBits(100)
+    @test numbits(r) <= 100
+
+    # Edge case: 0 bits
+    @test RandomBits(0) == ZZ(0)
+
+    # Error: negative bits
+    @test_throws DomainError RandomBits(-1)
+end
+
+@testset "ProbPrime" begin
+    # Known primes
+    @test ProbPrime(ZZ(2)) == true
+    @test ProbPrime(ZZ(3)) == true
+    @test ProbPrime(ZZ(5)) == true
+    @test ProbPrime(ZZ(7)) == true
+    @test ProbPrime(ZZ(11)) == true
+    @test ProbPrime(ZZ(1000000007)) == true  # Large prime
+
+    # Known composites
+    @test ProbPrime(ZZ(4)) == false
+    @test ProbPrime(ZZ(9)) == false
+    @test ProbPrime(ZZ(15)) == false
+    @test ProbPrime(ZZ(1000000011)) == false  # 1000000011 = 3 * 333333337
+
+    # Edge cases
+    @test ProbPrime(ZZ(0)) == false
+    @test ProbPrime(ZZ(1)) == false
+    @test ProbPrime(ZZ(-5)) == false  # Negative numbers not prime
+
+    # With num_trials parameter
+    @test ProbPrime(ZZ(1000000007), 20) == true
+end
+
+@testset "PrimeSeq" begin
+    # First few primes
+    ps = PrimeSeq()
+    @test next!(ps) == 2
+    @test next!(ps) == 3
+    @test next!(ps) == 5
+    @test next!(ps) == 7
+    @test next!(ps) == 11
+
+    # Reset and iterate again
+    reset!(ps, 1)
+    @test next!(ps) == 2
+
+    # Start from a higher value
+    reset!(ps, 20)
+    @test next!(ps) == 23
+
+    # Iterator interface
+    ps2 = PrimeSeq()
+    primes = Int[]
+    for p in ps2
+        p > 30 && break
+        push!(primes, p)
+    end
+    @test primes == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+end

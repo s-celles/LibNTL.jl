@@ -12,6 +12,7 @@ makedocs(
         "Home" => "index.md",
         "Types" => "types.md",
         "Tutorial" => "tutorial.md",
+        "Examples" => "examples.md",
     ],
     checkdocs = :exports,
     warnonly = true

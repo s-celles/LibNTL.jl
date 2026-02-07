@@ -27,6 +27,13 @@ end
 ZZ_p_init!(p::Integer) = ZZ_p_init!(ZZ(p))
 
 """
+    ZZ_p_modulus() -> ZZ
+
+Return the current global modulus for ZZ_p operations.
+"""
+ZZ_p_modulus
+
+"""
     save!(ctx::ZZ_pContext)
 
 Save the current modulus state into the context.

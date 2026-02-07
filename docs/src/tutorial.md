@@ -226,6 +226,138 @@ end
 3. **Use `with_modulus`**: For nested computations with different moduli
 4. **Polynomial degree**: Higher degree polynomials use FFT-based multiplication
 
+## Vectors and Matrices
+
+### VecZZ - Vectors of Integers
+
+```julia
+using LibNTL
+
+# Create a vector
+v = VecZZ([ZZ(1), ZZ(2), ZZ(3), ZZ(4), ZZ(5)])
+
+# 1-indexed access (Julia style)
+println(v[1])  # 1
+
+# 0-indexed access (NTL style)
+println(v(0))  # 1
+
+# Iteration
+for x in v
+    println(x)
+end
+
+# Modification
+v[1] = ZZ(100)
+```
+
+### MatZZ - Matrices of Integers
+
+```julia
+using LibNTL
+
+# Create a 2x2 matrix
+A = MatZZ(2, 2)
+A[1,1] = ZZ(1); A[1,2] = ZZ(2)
+A[2,1] = ZZ(3); A[2,2] = ZZ(4)
+
+# Dimensions
+println("Rows: ", nrows(A))
+println("Cols: ", ncols(A))
+
+# Matrix multiplication
+B = MatZZ(2, 2)
+B[1,1] = ZZ(5); B[1,2] = ZZ(6)
+B[2,1] = ZZ(7); B[2,2] = ZZ(8)
+
+C = A * B
+println(C[1,1])  # 19
+```
+
+## Modular Polynomials (ZZ_pX)
+
+```julia
+using LibNTL
+
+# Set modulus first
+with_modulus(ZZ(17)) do
+    # Create polynomial: 1 + 2x + 3x^2
+    f = ZZ_pX([ZZ_p(1), ZZ_p(2), ZZ_p(3)])
+
+    # Degree and coefficients
+    println("Degree: ", degree(f))
+    println("Leading coeff: ", leading(f))
+
+    # Arithmetic
+    g = ZZ_pX([ZZ_p(1), ZZ_p(1)])  # 1 + x
+    println("f + g = ", f + g)
+    println("f * g = ", f * g)
+
+    # Division
+    q, r = divrem(f, g)
+    println("f / g = ", q, " remainder ", r)
+
+    # GCD
+    h = gcd(f, g)
+    println("gcd(f, g) = ", h)
+
+    # Irreducibility testing
+    irred = ZZ_pX([ZZ_p(1), ZZ_p(1), ZZ_p(1)])  # x^2 + x + 1
+    println("x^2 + x + 1 irreducible mod 17: ", is_irreducible(irred))
+end
+```
+
+## Polynomial Factorization
+
+```julia
+using LibNTL
+
+# Factor x^4 - 1 over Z
+f = ZZX([ZZ(-1), ZZ(0), ZZ(0), ZZ(0), ZZ(1)])
+
+content_val, factors = factor(f)
+println("Content: ", content_val)
+println("Factors:")
+for (poly, mult) in factors
+    println("  ", poly, " ^ ", mult)
+end
+```
+
+## Cyclotomic Polynomials
+
+```julia
+using LibNTL
+
+# Generate cyclotomic polynomials
+for n in [1, 2, 3, 4, 6, 12]
+    phi = cyclotomic(n)
+    println("Phi_$n(x) = ", phi, " (degree ", degree(phi), ")")
+end
+```
+
+## Number Theory Functions
+
+```julia
+using LibNTL
+
+# Modular exponentiation
+result = PowerMod(ZZ(2), ZZ(100), ZZ(1000000007))
+println("2^100 mod 10^9+7 = ", result)
+
+# Primality testing
+n = ZZ("170141183460469231731687303715884105727")
+println("Is Mersenne prime: ", ProbPrime(n))
+
+# Random numbers
+r = RandomBnd(ZZ(1000))
+println("Random < 1000: ", r)
+
+# Bit operations
+x = ZZ(255)
+println("Bits in 255: ", numbits(x))
+println("Bit 7: ", bit(x, 7))
+```
+
 ## Comparison with Julia's BigInt
 
 | Operation | LibNTL.ZZ | Julia BigInt | Notes |
@@ -234,3 +366,5 @@ end
 | Arithmetic | Same operators | Same operators | ZZ uses NTL's optimized GMP wrapper |
 | Modular | `ZZ_p` type | `mod()` function | ZZ_p stores modulus context |
 | Polynomials | Native `ZZX` | Manual | ZZX has built-in polynomial ops |
+| Vectors | `VecZZ` | `Vector{BigInt}` | VecZZ supports 0-indexed access |
+| Matrices | `MatZZ` | `Matrix{BigInt}` | MatZZ has optimized multiplication |

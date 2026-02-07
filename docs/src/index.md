@@ -46,14 +46,17 @@ println("f(3) = ", f(ZZ(3)))
 - **Full arithmetic support**: Addition, subtraction, multiplication, division, exponentiation
 - **BigInt interoperability**: Seamless conversion between ZZ and Julia's BigInt
 - **GCD and extended GCD**: Including Bezout coefficients
-- **Polynomial operations**: Derivative, content, primitive part, GCD
+- **Polynomial operations**: Derivative, content, primitive part, GCD, factorization
+- **Modular polynomials**: ZZ_pX with irreducibility testing
+- **Vectors and matrices**: VecZZ and MatZZ for linear algebra
 - **Thread-local modulus**: Context-based modular arithmetic with save/restore
 - **Collection support**: Use ZZ, ZZ_p, ZZX as keys in Dict and elements in Set
+- **NTL Tour examples**: Complete Julia translations of NTL tutorial examples
 
 ## Contents
 
 ```@contents
-Pages = ["types.md", "tutorial.md"]
+Pages = ["types.md", "tutorial.md", "examples.md"]
 ```
 
 ## Index

@@ -213,3 +213,94 @@ end
     # eltype - check that it returns a ZZ-compatible type
     @test eltype(f) == typeof(ZZ(0))
 end
+
+@testset "ZZX Factorization" begin
+    # factor(x^2 - 1) = (x - 1)(x + 1)
+    f = ZZX([ZZ(-1), ZZ(0), ZZ(1)])  # -1 + x^2 = x^2 - 1
+    c, factors = factor(f)
+    @test c == ZZ(1)  # content is 1
+    @test length(factors) == 2  # Two distinct factors
+
+    # Verify product of factors equals original
+    product = ZZX([c])
+    for (p, e) in factors
+        for _ in 1:e
+            product = product * p
+        end
+    end
+    @test product == f
+
+    # factor(x^3 - x) = x(x-1)(x+1)
+    g = ZZX([ZZ(0), ZZ(-1), ZZ(0), ZZ(1)])  # -x + x^3 = x^3 - x
+    c2, factors2 = factor(g)
+    @test c2 == ZZ(1)
+    @test length(factors2) == 3  # x, (x-1), (x+1)
+
+    # Verify product
+    product2 = ZZX([c2])
+    for (p, e) in factors2
+        for _ in 1:e
+            product2 = product2 * p
+        end
+    end
+    @test product2 == g
+
+    # factor of constant polynomial
+    c3, factors3 = factor(ZZX(ZZ(6)))
+    @test c3 == ZZ(6)
+    @test isempty(factors3)
+
+    # factor with multiplicity: (x + 1)^2 = x^2 + 2x + 1
+    h = ZZX([ZZ(1), ZZ(2), ZZ(1)])
+    c4, factors4 = factor(h)
+    @test c4 == ZZ(1)
+    @test length(factors4) == 1  # Single factor (x + 1) with multiplicity 2
+    p, e = factors4[1]
+    @test e == 2
+    @test degree(p) == 1
+end
+
+@testset "ZZX Cyclotomic" begin
+    # Φ₁(x) = x - 1
+    phi1 = cyclotomic(1)
+    @test degree(phi1) == 1
+    @test coeff(phi1, 0) == ZZ(-1)
+    @test coeff(phi1, 1) == ZZ(1)
+
+    # Φ₂(x) = x + 1
+    phi2 = cyclotomic(2)
+    @test degree(phi2) == 1
+    @test coeff(phi2, 0) == ZZ(1)
+    @test coeff(phi2, 1) == ZZ(1)
+
+    # Φ₃(x) = x^2 + x + 1
+    phi3 = cyclotomic(3)
+    @test degree(phi3) == 2
+    @test coeff(phi3, 0) == ZZ(1)
+    @test coeff(phi3, 1) == ZZ(1)
+    @test coeff(phi3, 2) == ZZ(1)
+
+    # Φ₄(x) = x^2 + 1
+    phi4 = cyclotomic(4)
+    @test degree(phi4) == 2
+    @test coeff(phi4, 0) == ZZ(1)
+    @test coeff(phi4, 1) == ZZ(0)
+    @test coeff(phi4, 2) == ZZ(1)
+
+    # Φ₆(x) = x^2 - x + 1
+    phi6 = cyclotomic(6)
+    @test degree(phi6) == 2
+    @test coeff(phi6, 0) == ZZ(1)
+    @test coeff(phi6, 1) == ZZ(-1)
+    @test coeff(phi6, 2) == ZZ(1)
+
+    # Φ₁₂(x) = x^4 - x^2 + 1 (degree = φ(12) = 4)
+    phi12 = cyclotomic(12)
+    @test degree(phi12) == 4
+
+    # x^n - 1 = product of Φ_d(x) for all d | n
+    # Verify: x^6 - 1 = Φ₁(x)Φ₂(x)Φ₃(x)Φ₆(x)
+    xn_minus_1 = ZZX([ZZ(-1), ZZ(0), ZZ(0), ZZ(0), ZZ(0), ZZ(0), ZZ(1)])  # x^6 - 1
+    product = cyclotomic(1) * cyclotomic(2) * cyclotomic(3) * cyclotomic(6)
+    @test product == xn_minus_1
+end

@@ -80,6 +80,10 @@ ZZ_p supports:
 
 ## ZZ_pContext
 
+```@docs
+ZZ_pContext
+```
+
 For manual context management:
 
 ```julia
@@ -162,6 +166,91 @@ for c in f
     println(c)
 end
 # Output: 1, 2, 3
+```
+
+## ZZ_pX - Polynomials over Z/pZ
+
+```@docs
+ZZ_pX
+is_irreducible
+```
+
+### Construction
+
+```julia
+ZZ_p_init!(ZZ(17))  # Set modulus first
+f = ZZ_pX([ZZ_p(1), ZZ_p(2), ZZ_p(3)])  # 1 + 2x + 3x^2 mod 17
+```
+
+### Operations
+
+ZZ_pX supports:
+- `+`, `-`, `*`: Polynomial arithmetic mod p
+- `div`, `rem`, `divrem`: Polynomial division
+- `gcd`: Polynomial GCD (returns monic)
+- `is_irreducible`: Test irreducibility
+
+## VecZZ - Vectors of Integers
+
+```@docs
+VecZZ
+```
+
+### Construction
+
+```julia
+v = VecZZ(5)  # Vector of 5 zeros
+v = VecZZ([ZZ(1), ZZ(2), ZZ(3)])  # From coefficient array
+```
+
+### Indexing
+
+VecZZ supports both 0-indexed and 1-indexed access:
+
+```julia
+v = VecZZ([ZZ(10), ZZ(20), ZZ(30)])
+v[1]   # 10 (1-indexed)
+v(0)   # 10 (0-indexed, callable syntax)
+```
+
+## MatZZ - Matrices of Integers
+
+```@docs
+MatZZ
+```
+
+### Construction
+
+```julia
+M = MatZZ(3, 3)  # 3x3 zero matrix
+```
+
+### Operations
+
+```julia
+A = MatZZ(2, 2)
+A[1,1] = ZZ(1); A[1,2] = ZZ(2)
+A[2,1] = ZZ(3); A[2,2] = ZZ(4)
+
+nrows(A)  # 2
+ncols(A)  # 2
+```
+
+## Number Theory Functions
+
+```@docs
+PowerMod
+ProbPrime
+RandomBnd
+RandomBits
+bit
+```
+
+## Polynomial Functions
+
+```@docs
+factor
+cyclotomic
 ```
 
 ## InvModError

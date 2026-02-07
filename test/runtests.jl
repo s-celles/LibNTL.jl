@@ -18,6 +18,26 @@ using Test
         include("test_zzx.jl")
     end
 
+    @testset "ZZ_pX - Modular Polynomials" begin
+        include("test_zz_px.jl")
+    end
+
+    @testset "VecZZ - Integer Vectors" begin
+        include("test_vec.jl")
+    end
+
+    @testset "VecZZ_p - Modular Vectors" begin
+        include("test_vec_zz_p.jl")
+    end
+
+    @testset "MatZZ - Integer Matrices" begin
+        include("test_mat.jl")
+    end
+
+    @testset "GF2 - Binary Field Types" begin
+        include("test_gf2.jl")
+    end
+
     @testset "Docstrings" begin
         # Verify key functions have docstrings
         @test !isempty(string(@doc ZZ))
@@ -31,5 +51,17 @@ using Test
         @test !isempty(string(@doc degree))
         @test !isempty(string(@doc coeff))
         @test !isempty(string(@doc derivative))
+        # New number theory function docstrings
+        @test !isempty(string(@doc PowerMod))
+        @test !isempty(string(@doc ProbPrime))
+        @test !isempty(string(@doc PrimeSeq))
+        @test !isempty(string(@doc RandomBnd))
+        @test !isempty(string(@doc RandomBits))
+    end
+
+    # Examples as integration tests (only run if examples directory exists)
+    examples_dir = joinpath(@__DIR__, "..", "examples")
+    if isdir(examples_dir)
+        include("test_examples.jl")
     end
 end
