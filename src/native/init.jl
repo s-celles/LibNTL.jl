@@ -1,16 +1,17 @@
 """
-Production mode implementation for ZZ using NTL via CxxWrap.
+Native backend implementation using NTL via CxxWrap and libntl_julia_jll.
 """
 
-const _libntl_julia_path = ENV["LIBNTL_JULIA_PATH"]
+using CxxWrap
+using libntl_julia_jll
 
-@wrapmodule(() -> _libntl_julia_path, :define_julia_module)
+@wrapmodule(() -> libntl_julia_jll.libntl_julia, :define_julia_module)
 
 function __init__()
     @initcxx
 end
 
-# ZZ constructors for production mode
+# ZZ constructors for native mode
 # Note: ZZ(::Int64) is already defined by CxxWrap via .constructor<long>()
 ZZ(s::AbstractString) = ZZ_from_string(String(s))
 ZZ(x::BigInt) = ZZ_from_string(string(x))

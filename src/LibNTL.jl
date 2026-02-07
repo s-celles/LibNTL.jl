@@ -36,54 +36,32 @@ f = ZZX([ZZ(1), ZZ(2), ZZ(1)])  # 1 + 2x + x^2
 """
 module LibNTL
 
-using Preferences
-
-# Check if libntl_julia_jll is available
-const _HAS_JLL = try
+# --- Backend detection ---
+const _USE_NATIVE = try
     @eval using libntl_julia_jll
-    true
+    libntl_julia_jll.is_available()
 catch
     false
 end
 
-# Check for library path in order of precedence:
-# 1. libntl_julia_jll (if available)
-# 2. Environment variable LIBNTL_JULIA_PATH
-# 3. LocalPreferences.toml setting
-function _get_libntl_path()
-    # First try JLL
-    if _HAS_JLL
-        return libntl_julia_jll.libntl_julia_path
-    end
-
-    # Then check environment variable
-    env_path = get(ENV, "LIBNTL_JULIA_PATH", "")
-    if !isempty(env_path) && isfile(env_path)
-        return env_path
-    end
-
-    # Then check preferences
-    pref_path = @load_preference("libntl_julia_path", nothing)
-    if pref_path !== nothing && isfile(pref_path)
-        return pref_path
-    end
-
-    return nothing
-end
-
-const _LIBNTL_PATH = _get_libntl_path()
-const _LIBNTL_DEV_MODE = _LIBNTL_PATH === nothing
-
-# Only load CxxWrap if not in dev mode
-if !_LIBNTL_DEV_MODE
+# --- Load backend ---
+if _USE_NATIVE
     using CxxWrap
-    ENV["LIBNTL_JULIA_PATH"] = _LIBNTL_PATH  # Set for ZZ_prod.jl
+    include("native/init.jl")
+else
+    include("fallback/ZZ.jl")
+    include("fallback/ZZ_p.jl")
+    include("fallback/ZZX.jl")
+
+    function __init__()
+        @warn "libntl_julia_jll not available. Using pure Julia fallback (slower)."
+    end
 end
 
 # Error types
 include("errors.jl")
 
-# Type wrappers - ZZ, ZZ_p, and ZZX
+# High-level type interfaces
 include("types/ZZ.jl")
 include("types/ZZ_p.jl")
 include("types/ZZX.jl")

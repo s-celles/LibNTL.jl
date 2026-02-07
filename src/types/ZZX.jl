@@ -4,33 +4,24 @@
 Julia wrapper for NTL's ZZX class providing polynomial arithmetic over Z.
 """
 
-if _LIBNTL_DEV_MODE
-    include("ZZX_dev.jl")
-end
-
 # High-level interface
 
-# ZZX from coefficients - handles both dev and production mode
-if !_LIBNTL_DEV_MODE
-    """
-        ZZX(coeffs::AbstractVector)
+"""
+    ZZX(coeffs::AbstractVector)
 
-    Construct a polynomial from a vector of coefficients.
-    coeffs[1] is the constant term, coeffs[2] is the x coefficient, etc.
-    """
-    function ZZX(coeffs::AbstractVector)
-        f = ZZX()
-        for (i, c) in enumerate(coeffs)
-            setcoeff!(f, i - 1, c isa ZZ ? c : ZZ(c))
-        end
-        return f
+Construct a polynomial from a vector of coefficients.
+coeffs[1] is the constant term, coeffs[2] is the x coefficient, etc.
+"""
+function ZZX(coeffs::AbstractVector)
+    f = ZZX()
+    for (i, c) in enumerate(coeffs)
+        setcoeff!(f, i - 1, c isa ZZ ? c : ZZ(c))
     end
+    return f
 end
 
-# Convenience constructor for Integer vectors (both modes)
-if _LIBNTL_DEV_MODE
-    ZZX(coeffs::Vector{<:Integer}) = ZZX([ZZ(c) for c in coeffs])
-end
+# Convenience constructor for Integer vectors
+ZZX(coeffs::Vector{<:Integer}) = ZZX([ZZ(c) for c in coeffs])
 
 """
     degree(f::ZZX) -> Int
@@ -123,8 +114,6 @@ end
 
 # Iteration
 Base.length(f::ZZX) = max(0, degree(f) + 1)
-# Return the actual ZZ type (handles both dev and prod mode aliases)
-# Need to define for both the abstract type and concrete instances
 Base.eltype(::Type{<:ZZX}) = typeof(ZZ(0))
 Base.eltype(f::ZZX) = typeof(ZZ(0))
 
@@ -133,17 +122,4 @@ function Base.iterate(f::ZZX, state=0)
         return nothing
     end
     return (coeff(f, state), state + 1)
-end
-
-# Production mode copy (dev mode copy defined in ZZX_dev.jl)
-if !_LIBNTL_DEV_MODE
-    # Create copy by reconstructing from coefficients
-    function Base.copy(f::ZZX)
-        g = ZZX()
-        for i in 0:degree(f)
-            setcoeff!(g, i, coeff(f, i))
-        end
-        return g
-    end
-    Base.deepcopy_internal(f::ZZX, dict::IdDict) = copy(f)
 end

@@ -21,31 +21,21 @@ using Pkg
 Pkg.add("LibNTL")
 ```
 
-### Development Mode
+### Fallback Mode
 
-LibNTL works out of the box in **development mode** using pure Julia (BigInt).
+LibNTL works out of the box using a **pure Julia fallback** (BigInt-based).
 This is fully functional but slower than the native NTL library.
 
-### Building the NTL Wrapper (Optional)
+### Native Backend (Optional)
 
-For maximum performance, compile the C++ wrapper:
+On supported platforms (Linux x86_64, i686), the package can use
+precompiled NTL binaries via `libntl_julia_jll` for better performance.
 
-1. Install NTL:
-   ```bash
-   # Ubuntu/Debian
-   sudo apt-get install libntl-dev
+This JLL is being integrated into the Julia registry
+(see [Yggdrasil PR #13082](https://github.com/JuliaPackaging/Yggdrasil/pull/13082)).
 
-   # macOS
-   brew install ntl
-   ```
-
-2. Build the wrapper:
-   ```bash
-   cd ~/.julia/dev/LibNTL/deps
-   ./build.sh
-   ```
-
-3. Restart Julia. If successful, the warning message will disappear.
+For development of the C++ wrapper, see
+[libntl-julia-wrapper](https://github.com/s-celles/libntl-julia-wrapper).
 
 ## Quick Start
 

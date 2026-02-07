@@ -62,7 +62,3 @@ Base.hash(z::ZZ, h::UInt) = hash(z.value, h)
 # Copy
 Base.copy(z::ZZ) = ZZ(z.value)
 Base.deepcopy_internal(z::ZZ, dict::IdDict) = copy(z)
-
-function __init__()
-    @warn "LibNTL running in development mode (using Julia BigInt). Set LIBNTL_JULIA_PATH to use the NTL wrapper."
-end
