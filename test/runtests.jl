@@ -38,6 +38,18 @@ using Test
         include("test_gf2.jl")
     end
 
+    @testset "zz_p/zz_pX - Small Prime Types" begin
+        include("test_zz_p_small.jl")
+    end
+
+    @testset "ZZ_pE/ZZ_pEX - Extension Fields" begin
+        include("test_extension.jl")
+    end
+
+    @testset "RR - Arbitrary Precision Floats" begin
+        include("test_rr.jl")
+    end
+
     @testset "Docstrings" begin
         # Verify key functions have docstrings
         @test !isempty(string(@doc ZZ))

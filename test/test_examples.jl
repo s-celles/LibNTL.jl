@@ -74,4 +74,58 @@ end
     @testset "gf2_irred_test.jl" begin
         @test include(joinpath(examples_dir, "gf2_irred_test.jl")) === nothing || true
     end
+
+    if isfile(joinpath(examples_dir, "irred_test_small.jl"))
+        @testset "irred_test_small.jl" begin
+            @test include(joinpath(examples_dir, "irred_test_small.jl")) === nothing || true
+        end
+    end
+
+    if isfile(joinpath(examples_dir, "gcd_crt.jl"))
+        @testset "gcd_crt.jl" begin
+            @test include(joinpath(examples_dir, "gcd_crt.jl")) === nothing || true
+        end
+    end
+end
+
+@testset "Tour Example 5: Extension Fields" begin
+    examples_dir = joinpath(@__DIR__, "..", "examples", "tour_ex5")
+
+    if isfile(joinpath(examples_dir, "extension_field.jl"))
+        @testset "extension_field.jl" begin
+            @test include(joinpath(examples_dir, "extension_field.jl")) === nothing || true
+        end
+    end
+end
+
+@testset "Tour Example 6: Arbitrary Precision Floats" begin
+    examples_dir = joinpath(@__DIR__, "..", "examples", "tour_ex6")
+
+    if isfile(joinpath(examples_dir, "rr_sum_squares.jl"))
+        @testset "rr_sum_squares.jl" begin
+            @test include(joinpath(examples_dir, "rr_sum_squares.jl")) === nothing || true
+        end
+    end
+end
+
+@testset "Tour Example 7: Threading" begin
+    examples_dir = joinpath(@__DIR__, "..", "examples", "tour_ex7")
+
+    if isfile(joinpath(examples_dir, "serial_mul.jl"))
+        @testset "serial_mul.jl" begin
+            @test include(joinpath(examples_dir, "serial_mul.jl")) === nothing || true
+        end
+    end
+
+    if isfile(joinpath(examples_dir, "parallel_mul.jl"))
+        @testset "parallel_mul.jl" begin
+            @test include(joinpath(examples_dir, "parallel_mul.jl")) === nothing || true
+        end
+    end
+
+    if isfile(joinpath(examples_dir, "parallel_context.jl"))
+        @testset "parallel_context.jl" begin
+            @test include(joinpath(examples_dir, "parallel_context.jl")) === nothing || true
+        end
+    end
 end

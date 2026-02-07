@@ -72,6 +72,11 @@ else
     include("fallback/GF2X.jl")
     include("fallback/VecGF2.jl")
     include("fallback/MatGF2.jl")
+    include("fallback/zz_p.jl")
+    include("fallback/zz_pX.jl")
+    include("fallback/ZZ_pE.jl")
+    include("fallback/ZZ_pEX.jl")
+    include("fallback/RR.jl")
 
     function __init__()
         @warn "libntl_julia_jll not available. Using pure Julia fallback (slower)."
@@ -88,6 +93,11 @@ include("types/ZZX.jl")
 include("types/ZZ_pX.jl")
 include("types/GF2.jl")
 include("types/GF2X.jl")
+include("types/zz_p.jl")
+include("types/zz_pX.jl")
+include("types/ZZ_pE.jl")
+include("types/ZZ_pEX.jl")
+include("types/RR.jl")
 
 # Context management patterns
 include("context.jl")
@@ -107,6 +117,9 @@ export GF2, GF2X, VecGF2, MatGF2
 export AbstractVec, AbstractMat
 export VecZZ, VecZZ_p, MatZZ
 export InvModError
+export zz_p, zz_pX, zz_pContext
+export ZZ_pE, ZZ_pEX, ZZ_pEContext
+export RR
 
 # ZZ_pX function exports
 export is_irreducible
@@ -127,6 +140,17 @@ export PrimeSeq, next!, reset!
 # Function exports for ZZ_p
 export ZZ_p_init!, ZZ_p_modulus, with_modulus
 export rep, save!, restore!
+
+# Function exports for zz_p (small prime)
+export zz_p_init!, zz_p_FFTInit!, zz_p_modulus, with_small_modulus
+
+# Function exports for ZZ_pE (extension fields)
+export ZZ_pE_init!, ZZ_pE_degree, ZZ_pE_modulus, with_extension
+export random, MinPolyMod, CompMod
+
+# Function exports for RR (floating point)
+export RR_SetPrecision!, RR_precision, RR_SetOutputPrecision!, RR_OutputPrecision
+export RR_pi
 
 # Function exports for ZZX
 export degree, coeff, setcoeff!, leading, constant
