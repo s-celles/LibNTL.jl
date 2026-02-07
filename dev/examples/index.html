@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · LibNTL.jl</title><meta name="title" content="Examples · LibNTL.jl"/><meta property="og:title" content="Examples · LibNTL.jl"/><meta property="twitter:title" content="Examples · LibNTL.jl"/><meta name="description" content="Documentation for LibNTL.jl."/><meta property="og:description" content="Documentation for LibNTL.jl."/><meta property="twitter:description" content="Documentation for LibNTL.jl."/><meta property="og:url" content="https://github.com/s-celles/LibNTL.jl/examples/"/><meta property="twitter:url" content="https://github.com/s-celles/LibNTL.jl/examples/"/><link rel="canonical" href="https://github.com/s-celles/LibNTL.jl/examples/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">LibNTL.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../types/">Types</a></li><li><a class="tocitem" href="../tutorial/">Tutorial</a></li><li class="is-active"><a class="tocitem" href>Examples</a><ul class="internal"><li><a class="tocitem" href="#Tour-Example-1:-Big-Integers"><span>Tour Example 1: Big Integers</span></a></li><li><a class="tocitem" href="#Tour-Example-2:-Vectors-and-Matrices"><span>Tour Example 2: Vectors and Matrices</span></a></li><li><a class="tocitem" href="#Tour-Example-3:-Polynomials-over-Z"><span>Tour Example 3: Polynomials over Z</span></a></li><li><a class="tocitem" href="#Tour-Example-4:-Modular-Polynomials"><span>Tour Example 4: Modular Polynomials</span></a></li><li><a class="tocitem" href="#Running-the-Examples"><span>Running the Examples</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Examples</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Examples</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/s-celles/LibNTL.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/s-celles/LibNTL.jl/blob/main/docs/src/examples.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="NTL-Tour-Examples"><a class="docs-heading-anchor" href="#NTL-Tour-Examples">NTL Tour Examples</a><a id="NTL-Tour-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#NTL-Tour-Examples" title="Permalink"></a></h1><p>This page demonstrates LibNTL.jl by comparing NTL C++ examples with their Julia equivalents. All examples are from the <a href="https://libntl.org/doc/tour.html">NTL Tour</a>.</p><h2 id="Tour-Example-1:-Big-Integers"><a class="docs-heading-anchor" href="#Tour-Example-1:-Big-Integers">Tour Example 1: Big Integers</a><a id="Tour-Example-1:-Big-Integers-1"></a><a class="docs-heading-anchor-permalink" href="#Tour-Example-1:-Big-Integers" title="Permalink"></a></h2><h3 id="Example-1.1:-Basic-Arithmetic"><a class="docs-heading-anchor" href="#Example-1.1:-Basic-Arithmetic">Example 1.1: Basic Arithmetic</a><a id="Example-1.1:-Basic-Arithmetic-1"></a><a class="docs-heading-anchor-permalink" href="#Example-1.1:-Basic-Arithmetic" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">#include &lt;NTL/ZZ.h&gt;
+using namespace NTL;
+
+int main() {
+   ZZ a, b, c;
+   cin &gt;&gt; a &gt;&gt; b;
+   c = a + b;
+   cout &lt;&lt; c &lt;&lt; endl;
+}</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+a = ZZ(&quot;12345678901234567890&quot;)
+b = ZZ(&quot;98765432109876543210&quot;)
+c = a + b
+println(c)  # 111111111011111111100</code></pre><h3 id="Example-1.2:-Sum-of-Squares"><a class="docs-heading-anchor" href="#Example-1.2:-Sum-of-Squares">Example 1.2: Sum of Squares</a><a id="Example-1.2:-Sum-of-Squares-1"></a><a class="docs-heading-anchor-permalink" href="#Example-1.2:-Sum-of-Squares" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZ sum = ZZ(0);
+for (long i = 1; i &lt;= 100; i++) {
+   sum += ZZ(i) * ZZ(i);
+}</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+sum = ZZ(0)
+for i in 1:100
+    sum += ZZ(i) * ZZ(i)
+end
+println(sum)  # 338350</code></pre><h3 id="Example-1.3:-Modular-Exponentiation"><a class="docs-heading-anchor" href="#Example-1.3:-Modular-Exponentiation">Example 1.3: Modular Exponentiation</a><a id="Example-1.3:-Modular-Exponentiation-1"></a><a class="docs-heading-anchor-permalink" href="#Example-1.3:-Modular-Exponentiation" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZ a, e, n;
+PowerMod(result, a, e, n);</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+a = ZZ(2)
+e = ZZ(100)
+n = ZZ(1000000007)
+result = PowerMod(a, e, n)
+println(result)  # 976371285</code></pre><h3 id="Example-1.4:-Primality-Testing"><a class="docs-heading-anchor" href="#Example-1.4:-Primality-Testing">Example 1.4: Primality Testing</a><a id="Example-1.4:-Primality-Testing-1"></a><a class="docs-heading-anchor-permalink" href="#Example-1.4:-Primality-Testing" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZ n;
+if (ProbPrime(n))
+   cout &lt;&lt; n &lt;&lt; &quot; is probably prime&quot; &lt;&lt; endl;</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+n = ZZ(&quot;170141183460469231731687303715884105727&quot;)  # 2^127 - 1
+if ProbPrime(n)
+    println(&quot;$n is probably prime&quot;)
+end</code></pre><h2 id="Tour-Example-2:-Vectors-and-Matrices"><a class="docs-heading-anchor" href="#Tour-Example-2:-Vectors-and-Matrices">Tour Example 2: Vectors and Matrices</a><a id="Tour-Example-2:-Vectors-and-Matrices-1"></a><a class="docs-heading-anchor-permalink" href="#Tour-Example-2:-Vectors-and-Matrices" title="Permalink"></a></h2><h3 id="Example-2.1:-Vector-Sum-(0-indexed-style)"><a class="docs-heading-anchor" href="#Example-2.1:-Vector-Sum-(0-indexed-style)">Example 2.1: Vector Sum (0-indexed style)</a><a id="Example-2.1:-Vector-Sum-(0-indexed-style)-1"></a><a class="docs-heading-anchor-permalink" href="#Example-2.1:-Vector-Sum-(0-indexed-style)" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">Vec&lt;ZZ&gt; v;
+v.SetLength(5);
+ZZ sum = ZZ(0);
+for (long i = 0; i &lt; v.length(); i++)
+   sum += v[i];</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+v = VecZZ([ZZ(1), ZZ(2), ZZ(3), ZZ(4), ZZ(5)])
+sum = ZZ(0)
+for i in 0:length(v)-1
+    sum += v(i)  # 0-indexed access via callable
+end
+println(sum)  # 15</code></pre><h3 id="Example-2.2:-Vector-Sum-(1-indexed-Julia-style)"><a class="docs-heading-anchor" href="#Example-2.2:-Vector-Sum-(1-indexed-Julia-style)">Example 2.2: Vector Sum (1-indexed Julia style)</a><a id="Example-2.2:-Vector-Sum-(1-indexed-Julia-style)-1"></a><a class="docs-heading-anchor-permalink" href="#Example-2.2:-Vector-Sum-(1-indexed-Julia-style)" title="Permalink"></a></h3><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+v = VecZZ([ZZ(1), ZZ(2), ZZ(3), ZZ(4), ZZ(5)])
+sum = ZZ(0)
+for x in v  # Iterator access
+    sum += x
+end
+println(sum)  # 15</code></pre><h3 id="Example-2.3:-Matrix-Multiplication"><a class="docs-heading-anchor" href="#Example-2.3:-Matrix-Multiplication">Example 2.3: Matrix Multiplication</a><a id="Example-2.3:-Matrix-Multiplication-1"></a><a class="docs-heading-anchor-permalink" href="#Example-2.3:-Matrix-Multiplication" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">Mat&lt;ZZ&gt; A, B, C;
+mul(C, A, B);</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+A = MatZZ(2, 2)
+A[1,1] = ZZ(1); A[1,2] = ZZ(2)
+A[2,1] = ZZ(3); A[2,2] = ZZ(4)
+
+B = MatZZ(2, 2)
+B[1,1] = ZZ(5); B[1,2] = ZZ(6)
+B[2,1] = ZZ(7); B[2,2] = ZZ(8)
+
+C = A * B
+println(&quot;C[1,1] = &quot;, C[1,1])  # 19
+println(&quot;C[1,2] = &quot;, C[1,2])  # 22
+println(&quot;C[2,1] = &quot;, C[2,1])  # 43
+println(&quot;C[2,2] = &quot;, C[2,2])  # 50</code></pre><h2 id="Tour-Example-3:-Polynomials-over-Z"><a class="docs-heading-anchor" href="#Tour-Example-3:-Polynomials-over-Z">Tour Example 3: Polynomials over Z</a><a id="Tour-Example-3:-Polynomials-over-Z-1"></a><a class="docs-heading-anchor-permalink" href="#Tour-Example-3:-Polynomials-over-Z" title="Permalink"></a></h2><h3 id="Example-3.1:-Polynomial-Factorization"><a class="docs-heading-anchor" href="#Example-3.1:-Polynomial-Factorization">Example 3.1: Polynomial Factorization</a><a id="Example-3.1:-Polynomial-Factorization-1"></a><a class="docs-heading-anchor-permalink" href="#Example-3.1:-Polynomial-Factorization" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZX f;
+Vec&lt;Pair&lt;ZZX, long&gt;&gt; factors;
+ZZ c;
+factor(c, factors, f);</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+# x^4 - 1 = (x-1)(x+1)(x^2+1)
+f = ZZX([ZZ(-1), ZZ(0), ZZ(0), ZZ(0), ZZ(1)])
+content_val, factors = factor(f)
+
+println(&quot;Content: &quot;, content_val)
+for (poly, mult) in factors
+    println(&quot;Factor: &quot;, poly, &quot; with multiplicity &quot;, mult)
+end</code></pre><h3 id="Example-3.2:-Cyclotomic-Polynomials"><a class="docs-heading-anchor" href="#Example-3.2:-Cyclotomic-Polynomials">Example 3.2: Cyclotomic Polynomials</a><a id="Example-3.2:-Cyclotomic-Polynomials-1"></a><a class="docs-heading-anchor-permalink" href="#Example-3.2:-Cyclotomic-Polynomials" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZX phi;
+CyclotomicPoly(phi, 12);  // Phi_12(x)</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+phi = cyclotomic(12)  # Phi_12(x) = x^4 - x^2 + 1
+println(&quot;Phi_12(x) = &quot;, phi)
+println(&quot;Degree: &quot;, degree(phi))  # 4</code></pre><h2 id="Tour-Example-4:-Modular-Polynomials"><a class="docs-heading-anchor" href="#Tour-Example-4:-Modular-Polynomials">Tour Example 4: Modular Polynomials</a><a id="Tour-Example-4:-Modular-Polynomials-1"></a><a class="docs-heading-anchor-permalink" href="#Tour-Example-4:-Modular-Polynomials" title="Permalink"></a></h2><h3 id="Example-4.1:-Polynomial-Factorization-mod-p"><a class="docs-heading-anchor" href="#Example-4.1:-Polynomial-Factorization-mod-p">Example 4.1: Polynomial Factorization mod p</a><a id="Example-4.1:-Polynomial-Factorization-mod-p-1"></a><a class="docs-heading-anchor-permalink" href="#Example-4.1:-Polynomial-Factorization-mod-p" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZ_p::init(ZZ(17));
+ZZ_pX f;
+// Build f(x) = x^4 - 1
+SetCoeff(f, 4, 1);
+SetCoeff(f, 0, -1);</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+with_modulus(ZZ(17)) do
+    # x^4 - 1 = x^4 + 16 (mod 17)
+    f = ZZ_pX([ZZ_p(16), ZZ_p(0), ZZ_p(0), ZZ_p(0), ZZ_p(1)])
+    println(&quot;f(x) = &quot;, f)
+
+    # Check roots
+    for x in 0:16
+        if iszero(f(ZZ_p(x)))
+            println(&quot;Root: &quot;, x)
+        end
+    end
+end</code></pre><h3 id="Example-4.2:-Irreducibility-Testing"><a class="docs-heading-anchor" href="#Example-4.2:-Irreducibility-Testing">Example 4.2: Irreducibility Testing</a><a id="Example-4.2:-Irreducibility-Testing-1"></a><a class="docs-heading-anchor-permalink" href="#Example-4.2:-Irreducibility-Testing" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZ_p::init(ZZ(2));
+ZZ_pX f;
+// f = x^2 + x + 1
+SetCoeff(f, 0, 1);
+SetCoeff(f, 1, 1);
+SetCoeff(f, 2, 1);
+if (DetIrredTest(f))
+   cout &lt;&lt; &quot;Irreducible!&quot; &lt;&lt; endl;</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+with_modulus(ZZ(2)) do
+    # x^2 + x + 1 is irreducible over GF(2)
+    f = ZZ_pX([ZZ_p(1), ZZ_p(1), ZZ_p(1)])
+    println(&quot;f = &quot;, f)
+    println(&quot;Irreducible: &quot;, is_irreducible(f))  # true
+end</code></pre><h3 id="Example-4.3:-Context-Management"><a class="docs-heading-anchor" href="#Example-4.3:-Context-Management">Example 4.3: Context Management</a><a id="Example-4.3:-Context-Management-1"></a><a class="docs-heading-anchor-permalink" href="#Example-4.3:-Context-Management" title="Permalink"></a></h3><p><strong>C++ (NTL)</strong>:</p><pre><code class="language-cpp hljs">ZZ_p::init(ZZ(17));
+ZZ_pContext context;
+context.save();
+ZZ_p::init(ZZ(23));
+// ... work with modulus 23 ...
+context.restore();</code></pre><p><strong>Julia (LibNTL.jl)</strong>:</p><pre><code class="language-julia hljs">using LibNTL
+
+ZZ_p_init!(ZZ(17))
+println(&quot;Outer modulus: &quot;, ZZ_p_modulus())
+
+with_modulus(ZZ(23)) do
+    println(&quot;Inner modulus: &quot;, ZZ_p_modulus())
+    # Work with modulus 23
+end
+
+println(&quot;Restored modulus: &quot;, ZZ_p_modulus())  # Back to 17</code></pre><h2 id="Running-the-Examples"><a class="docs-heading-anchor" href="#Running-the-Examples">Running the Examples</a><a id="Running-the-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Running-the-Examples" title="Permalink"></a></h2><p>All examples are available as runnable scripts in the <code>examples/</code> directory:</p><pre><code class="language-julia hljs"># From the package directory
+include(&quot;examples/tour_ex1/basic_arithmetic.jl&quot;)
+include(&quot;examples/tour_ex2/matrix_multiply.jl&quot;)
+include(&quot;examples/tour_ex3/factorization.jl&quot;)
+include(&quot;examples/tour_ex4/poly_factor_mod_p.jl&quot;)</code></pre><p>Or run them as tests:</p><pre><code class="language-julia hljs">using Pkg
+Pkg.test(&quot;LibNTL&quot;)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial/">« Tutorial</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Saturday 7 February 2026 21:38">Saturday 7 February 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
