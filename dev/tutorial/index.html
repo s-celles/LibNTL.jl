@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Tutorial · LibNTL.jl</title><meta name="title" content="Tutorial · LibNTL.jl"/><meta property="og:title" content="Tutorial · LibNTL.jl"/><meta property="twitter:title" content="Tutorial · LibNTL.jl"/><meta name="description" content="Documentation for LibNTL.jl."/><meta property="og:description" content="Documentation for LibNTL.jl."/><meta property="twitter:description" content="Documentation for LibNTL.jl."/><meta property="og:url" content="https://github.com/s-celles/LibNTL.jl/tutorial/"/><meta property="twitter:url" content="https://github.com/s-celles/LibNTL.jl/tutorial/"/><link rel="canonical" href="https://github.com/s-celles/LibNTL.jl/tutorial/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">LibNTL.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../types/">Types</a></li><li class="is-active"><a class="tocitem" href>Tutorial</a><ul class="internal"><li><a class="tocitem" href="#Basic-Usage"><span>Basic Usage</span></a></li><li><a class="tocitem" href="#Common-Patterns"><span>Common Patterns</span></a></li><li><a class="tocitem" href="#Error-Handling"><span>Error Handling</span></a></li><li><a class="tocitem" href="#Performance-Tips"><span>Performance Tips</span></a></li><li><a class="tocitem" href="#Comparison-with-Julia&#39;s-BigInt"><span>Comparison with Julia&#39;s BigInt</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Tutorial</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Tutorial</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/s-celles/LibNTL.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/s-celles/LibNTL.jl/blob/main/docs/src/tutorial.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Tutorial"><a class="docs-heading-anchor" href="#Tutorial">Tutorial</a><a id="Tutorial-1"></a><a class="docs-heading-anchor-permalink" href="#Tutorial" title="Permalink"></a></h1><p>This tutorial covers common usage patterns for LibNTL.jl.</p><h2 id="Basic-Usage"><a class="docs-heading-anchor" href="#Basic-Usage">Basic Usage</a><a id="Basic-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Usage" title="Permalink"></a></h2><h3 id="Arbitrary-Precision-Integers-(ZZ)"><a class="docs-heading-anchor" href="#Arbitrary-Precision-Integers-(ZZ)">Arbitrary-Precision Integers (ZZ)</a><a id="Arbitrary-Precision-Integers-(ZZ)-1"></a><a class="docs-heading-anchor-permalink" href="#Arbitrary-Precision-Integers-(ZZ)" title="Permalink"></a></h3><pre><code class="language-julia hljs">using LibNTL
+
+# Create integers
+a = ZZ(42)
+b = ZZ(&quot;12345678901234567890&quot;)
+c = ZZ(big&quot;999999999999999999999999&quot;)
+
+# Arithmetic
+sum = a + b
+diff = b - a
+prod = a * b
+quot = div(b, a)
+remainder = rem(b, a)
+
+# Power
+squared = a^2
+big_power = ZZ(2)^1000  # 2^1000
+
+# GCD
+g = gcd(ZZ(48), ZZ(18))  # 6
+d, s, t = gcdx(ZZ(48), ZZ(18))  # d = 48*s + 18*t
+
+# Convert to/from BigInt
+big_val = convert(BigInt, b)
+back_to_zz = ZZ(big_val)
+
+# Display
+println(a)  # 42
+println(&quot;Bits: &quot;, numbits(b))  # Number of bits</code></pre><h3 id="Modular-Arithmetic-(ZZ_p)"><a class="docs-heading-anchor" href="#Modular-Arithmetic-(ZZ_p)">Modular Arithmetic (ZZ_p)</a><a id="Modular-Arithmetic-(ZZ_p)-1"></a><a class="docs-heading-anchor-permalink" href="#Modular-Arithmetic-(ZZ_p)" title="Permalink"></a></h3><pre><code class="language-julia hljs">using LibNTL
+
+# Set the modulus (must be &gt; 1)
+p = ZZ(17)
+ZZ_p_init!(p)
+
+# Create elements mod p
+x = ZZ_p(5)
+y = ZZ_p(12)
+
+# Arithmetic (automatically reduced mod p)
+sum = x + y      # 0 (since 5 + 12 = 17 ≡ 0 mod 17)
+prod = x * y     # 9 (since 5 * 12 = 60 ≡ 9 mod 17)
+
+# Inverse
+inv_x = inv(x)   # 7 (since 5 * 7 = 35 ≡ 1 mod 17)
+
+# Power
+powered = x^10
+
+# Get underlying value
+val = rep(x)     # Returns ZZ in [0, p-1]
+
+# Check current modulus
+println(&quot;Modulus: &quot;, ZZ_p_modulus())  # 17</code></pre><h3 id="Context-Switching"><a class="docs-heading-anchor" href="#Context-Switching">Context Switching</a><a id="Context-Switching-1"></a><a class="docs-heading-anchor-permalink" href="#Context-Switching" title="Permalink"></a></h3><pre><code class="language-julia hljs">using LibNTL
+
+# Work with different moduli
+ZZ_p_init!(ZZ(17))
+a = ZZ_p(5)
+
+# Use with_modulus for temporary modulus change
+result = with_modulus(ZZ(23)) do
+    b = ZZ_p(7)
+    inv(b)  # Inverse mod 23
+end
+
+# Original modulus is restored
+println(ZZ_p_modulus())  # 17</code></pre><h3 id="Polynomials-over-Z-(ZZX)"><a class="docs-heading-anchor" href="#Polynomials-over-Z-(ZZX)">Polynomials over Z (ZZX)</a><a id="Polynomials-over-Z-(ZZX)-1"></a><a class="docs-heading-anchor-permalink" href="#Polynomials-over-Z-(ZZX)" title="Permalink"></a></h3><pre><code class="language-julia hljs">using LibNTL
+
+# Create polynomials
+zero_poly = ZZX()              # 0
+const_poly = ZZX(ZZ(5))        # 5
+linear = ZZX([ZZ(1), ZZ(2)])   # 1 + 2x
+
+# Build polynomial by setting coefficients
+f = ZZX()
+setcoeff!(f, 0, ZZ(1))   # constant term
+setcoeff!(f, 2, ZZ(3))   # x^2 coefficient
+setcoeff!(f, 4, ZZ(1))   # x^4 coefficient
+# f = 1 + 3x^2 + x^4
+
+# Query polynomial
+println(&quot;Degree: &quot;, degree(f))        # 4
+println(&quot;Leading: &quot;, leading(f))      # 1
+println(&quot;Constant: &quot;, constant(f))    # 1
+println(&quot;Coeff of x^2: &quot;, coeff(f, 2)) # 3
+println(&quot;Coeff of x^3: &quot;, coeff(f, 3)) # 0 (not set)
+
+# Arithmetic
+g = ZZX([ZZ(1), ZZ(1)])  # 1 + x
+product = f * g
+sum = f + g
+
+# Division
+q, r = divrem(f, g)  # f = q*g + r
+
+# GCD
+h = gcd(f, g)
+
+# Evaluate polynomial
+x = ZZ(2)
+result = f(x)  # 1 + 3*4 + 16 = 29
+
+# Derivative
+df = derivative(f)  # 6x + 4x^3
+
+# Content and primitive part
+c = content(f)      # GCD of coefficients
+pp = primpart(f)    # f / content(f)</code></pre><h2 id="Common-Patterns"><a class="docs-heading-anchor" href="#Common-Patterns">Common Patterns</a><a id="Common-Patterns-1"></a><a class="docs-heading-anchor-permalink" href="#Common-Patterns" title="Permalink"></a></h2><h3 id="RSA-style-Modular-Exponentiation"><a class="docs-heading-anchor" href="#RSA-style-Modular-Exponentiation">RSA-style Modular Exponentiation</a><a id="RSA-style-Modular-Exponentiation-1"></a><a class="docs-heading-anchor-permalink" href="#RSA-style-Modular-Exponentiation" title="Permalink"></a></h3><pre><code class="language-julia hljs">using LibNTL
+
+# Generate a prime modulus
+p = ZZ(&quot;104729&quot;)  # A prime number
+
+ZZ_p_init!(p)
+
+# Base and exponent
+base = ZZ_p(12345)
+exponent = ZZ(&quot;1000000007&quot;)
+
+# Modular exponentiation
+result = base^exponent
+
+println(&quot;12345^1000000007 mod 104729 = &quot;, rep(result))</code></pre><h3 id="Polynomial-GCD"><a class="docs-heading-anchor" href="#Polynomial-GCD">Polynomial GCD</a><a id="Polynomial-GCD-1"></a><a class="docs-heading-anchor-permalink" href="#Polynomial-GCD" title="Permalink"></a></h3><pre><code class="language-julia hljs">using LibNTL
+
+# f(x) = x^3 - 1 = (x-1)(x^2+x+1)
+f = ZZX([ZZ(-1), ZZ(0), ZZ(0), ZZ(1)])
+
+# g(x) = x^2 - 1 = (x-1)(x+1)
+g = ZZX([ZZ(-1), ZZ(0), ZZ(1)])
+
+# GCD should be (x-1) up to constant
+h = gcd(f, g)
+println(&quot;GCD: &quot;, h)  # Should be proportional to (x - 1)</code></pre><h3 id="Large-Integer-Factorization-Setup"><a class="docs-heading-anchor" href="#Large-Integer-Factorization-Setup">Large Integer Factorization Setup</a><a id="Large-Integer-Factorization-Setup-1"></a><a class="docs-heading-anchor-permalink" href="#Large-Integer-Factorization-Setup" title="Permalink"></a></h3><pre><code class="language-julia hljs">using LibNTL
+
+# Check if a number might be prime
+n = ZZ(&quot;170141183460469231731687303715884105727&quot;)  # 2^127 - 1 (Mersenne prime)
+
+# Count bits
+println(&quot;Bits: &quot;, numbits(n))  # 127
+
+# Basic primality test via trial division up to small bound
+is_composite = false
+for p in [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+    if rem(n, ZZ(p)) == ZZ(0) &amp;&amp; n != ZZ(p)
+        is_composite = true
+        println(&quot;Divisible by &quot;, p)
+        break
+    end
+end
+
+if !is_composite
+    println(&quot;Not divisible by small primes&quot;)
+end</code></pre><h2 id="Error-Handling"><a class="docs-heading-anchor" href="#Error-Handling">Error Handling</a><a id="Error-Handling-1"></a><a class="docs-heading-anchor-permalink" href="#Error-Handling" title="Permalink"></a></h2><pre><code class="language-julia hljs">using LibNTL
+
+# Division by zero
+try
+    div(ZZ(10), ZZ(0))
+catch e
+    println(&quot;Caught: &quot;, e)  # DomainError
+end
+
+# Inverse of zero in ZZ_p
+ZZ_p_init!(ZZ(17))
+try
+    inv(ZZ_p(0))
+catch e::InvModError
+    println(&quot;Cannot invert &quot;, e.a, &quot; mod &quot;, e.n)
+end</code></pre><h2 id="Performance-Tips"><a class="docs-heading-anchor" href="#Performance-Tips">Performance Tips</a><a id="Performance-Tips-1"></a><a class="docs-heading-anchor-permalink" href="#Performance-Tips" title="Permalink"></a></h2><ol><li><strong>Reuse objects</strong>: Avoid creating many small temporary ZZ values in tight loops</li><li><strong>Pre-set modulus</strong>: Call <code>ZZ_p_init!</code> once before many ZZ_p operations</li><li><strong>Use <code>with_modulus</code></strong>: For nested computations with different moduli</li><li><strong>Polynomial degree</strong>: Higher degree polynomials use FFT-based multiplication</li></ol><h2 id="Comparison-with-Julia&#39;s-BigInt"><a class="docs-heading-anchor" href="#Comparison-with-Julia&#39;s-BigInt">Comparison with Julia&#39;s BigInt</a><a id="Comparison-with-Julia&#39;s-BigInt-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-with-Julia&#39;s-BigInt" title="Permalink"></a></h2><table><tr><th style="text-align: right">Operation</th><th style="text-align: right">LibNTL.ZZ</th><th style="text-align: right">Julia BigInt</th><th style="text-align: right">Notes</th></tr><tr><td style="text-align: right">Creation</td><td style="text-align: right"><code>ZZ(...)</code></td><td style="text-align: right"><code>big&quot;...&quot;</code></td><td style="text-align: right">Similar</td></tr><tr><td style="text-align: right">Arithmetic</td><td style="text-align: right">Same operators</td><td style="text-align: right">Same operators</td><td style="text-align: right">ZZ uses NTL&#39;s optimized GMP wrapper</td></tr><tr><td style="text-align: right">Modular</td><td style="text-align: right"><code>ZZ_p</code> type</td><td style="text-align: right"><code>mod()</code> function</td><td style="text-align: right">ZZ_p stores modulus context</td></tr><tr><td style="text-align: right">Polynomials</td><td style="text-align: right">Native <code>ZZX</code></td><td style="text-align: right">Manual</td><td style="text-align: right">ZZX has built-in polynomial ops</td></tr></table></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../types/">« Types</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Saturday 7 February 2026 17:28">Saturday 7 February 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
