@@ -1,0 +1,19 @@
+name = "LibNTL"
+uuid = "f5c7a3e2-8d9b-4c1f-a5e6-7b8c9d0e1f2a"
+authors = ["LibNTL Contributors"]
+version = "0.1.0"
+
+[deps]
+CxxWrap = "1f15a43c-97ca-5a2a-ae31-89f07a497df4"
+Preferences = "21216c6a-2e73-6563-6e65-726566657250"
+
+[compat]
+julia = "1.6"
+CxxWrap = "0.15, 0.16, 0.17"
+Preferences = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
