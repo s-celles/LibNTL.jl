@@ -15,7 +15,7 @@ makedocs(
         "Examples" => "examples.md",
     ],
     checkdocs = :exports,
-    warnonly = true
+    warnonly = false
 )
 
 deploydocs(

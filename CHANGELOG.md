@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+#### Documentation
+- Minimized README.md to essential content only (title, badges, installation, link to docs)
+- Moved detailed content (features, quick start examples, backend info, BigInt conversion) to documentation
+- Enabled strict documentation builds (`warnonly = false`) to ensure all exported functions have docstrings
+- Added comprehensive @docs blocks for all types: GF2, GF2X, VecGF2, MatGF2, zz_p, zz_pX, VecZZ_p, ZZ_pE, ZZ_pEX, RR, AbstractVec, AbstractMat
+
 ### Added
 
 #### Core Types

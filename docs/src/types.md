@@ -244,6 +244,8 @@ ProbPrime
 RandomBnd
 RandomBits
 bit
+next!
+reset!
 ```
 
 ## Polynomial Functions
@@ -268,4 +270,93 @@ try
 catch e::InvModError
     println("Cannot invert ", e.a, " mod ", e.n)
 end
+```
+
+## GF2 - Binary Field Elements
+
+```@docs
+GF2
+```
+
+## GF2X - Polynomials over GF(2)
+
+```@docs
+GF2X
+```
+
+## VecGF2 - Vectors over GF(2)
+
+```@docs
+VecGF2
+```
+
+## MatGF2 - Matrices over GF(2)
+
+```@docs
+MatGF2
+gauss!
+matrix_rank
+```
+
+## zz_p - Small Prime Modular Integers
+
+```@docs
+zz_p
+zz_pContext
+zz_p_init!
+zz_p_FFTInit!
+zz_p_modulus
+with_small_modulus
+```
+
+## zz_pX - Polynomials over zz_p
+
+```@docs
+zz_pX
+```
+
+## VecZZ_p - Vectors of Modular Integers
+
+```@docs
+VecZZ_p
+inner_product
+inner_product_zz
+```
+
+## ZZ_pE - Extension Field Elements
+
+```@docs
+ZZ_pE
+ZZ_pEContext
+ZZ_pE_init!
+ZZ_pE_degree
+ZZ_pE_modulus
+with_extension
+```
+
+## ZZ_pEX - Polynomials over Extension Fields
+
+```@docs
+ZZ_pEX
+random
+MinPolyMod
+CompMod
+```
+
+## RR - Arbitrary-Precision Floating Point
+
+```@docs
+RR
+RR_SetPrecision!
+RR_precision
+RR_SetOutputPrecision!
+RR_OutputPrecision
+RR_pi
+```
+
+## Abstract Types
+
+```@docs
+AbstractVec
+AbstractMat
 ```
