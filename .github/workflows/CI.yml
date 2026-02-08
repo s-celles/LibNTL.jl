@@ -20,17 +20,25 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.6'    # LTS
-          - '1.10'   # Current stable
-          - '1'      # Latest release
+          - 'lts'   # LTS (currently 1.10)
+          - '1'     # Latest release
         os:
           - ubuntu-latest
           - macos-latest
         arch:
           - x64
         exclude:
-          # Windows not supported (ntl_jll limitation)
-          - os: windows-latest
+          # macOS-latest is ARM64 (Apple Silicon), x64 doesn't work well
+          - os: macos-latest
+            arch: x64
+        include:
+          # macOS uses native ARM64 architecture
+          - os: macos-latest
+            arch: aarch64
+            version: 'lts'
+          - os: macos-latest
+            arch: aarch64
+            version: '1'
 
     steps:
       - uses: actions/checkout@v4

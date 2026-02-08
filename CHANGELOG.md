@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+#### CI/CD
+- Fixed macOS CI failures: use native ARM64 (aarch64) for macOS-latest instead of x64 under Rosetta 2
+- Updated minimum Julia version to 1.10 (current LTS)
+- Use `lts` version specifier in CI instead of hardcoded version number
+
 #### Documentation
 - Minimized README.md to essential content only (title, badges, installation, link to docs)
 - Moved detailed content (features, quick start examples, backend info, BigInt conversion) to documentation
