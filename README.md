@@ -13,7 +13,7 @@ using Pkg
 Pkg.add("LibNTL")
 ```
 
-See the [documentation](https://s-celles.github.io/LibNTL.jl/stable/) for usage examples and API reference.
+See the [documentation](https://s-celles.github.io/LibNTL.jl/) for usage examples and API reference.
 
 ## License
 
